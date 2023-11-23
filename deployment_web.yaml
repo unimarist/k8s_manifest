@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ankiba-nginx-deployment
+  labels:
+    role: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: web
+  template:
+    metadata:
+      labels:
+        role: web
+    spec:
+      containers:
+      - name: nginx
+        image: docker.io/manmaru/ankiba-web:latest
+        ports:
+        - containerPort: 80
