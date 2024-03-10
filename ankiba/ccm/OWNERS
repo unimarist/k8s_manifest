@@ -1,0 +1,35 @@
+approvers:
+- dims
+- justinsb
+- nckturner
+- M00nF1sh
+- andrewsykim
+- wongma7
+- olemarkus
+- hakman
+- kishorj
+- cartermckinnon
+- mmerkes
+reviewers:
+- dims
+- justinsb
+- nckturner
+- M00nF1sh
+- andrewsykim
+- wongma7
+- olemarkus
+- hakman
+- kishorj
+- cartermckinnon
+- mmerkes
+emeritus_approvers:
+- zmerlynn
+- gnufied
+- jsafrane
+- micahhausler
+- mcrute
+- gyuho
+- d-nishi
+- leakingtapan
+- ayberk
+- jaypipes
