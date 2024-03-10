@@ -54,4 +54,4 @@ spec:
           - -c
           - bundle exec rake db:migrate RAILS_ENV=production && bundle exec unicorn_rails -c /var/www/rails/ankiba/config/unicorn.conf.rb -E production
       imagePullSecrets:
-      - name: regcred-ap
+      - name: regcred

@@ -10,4 +10,4 @@ spec:
     port: 3000
   selector:
     role: ap
-  type: NodePort
+  type: ClusterIP
