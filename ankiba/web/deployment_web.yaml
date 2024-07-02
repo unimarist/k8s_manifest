@@ -14,6 +14,8 @@ spec:
       labels:
         role: web
     spec:
+      nodeSelector:
+        role: worker
       containers:
       - name: nginx
         image: docker.io/manmaru/ankiba-web:latest
