@@ -4,6 +4,8 @@ metadata:
   name: ankiba-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/affinity: "cookie" # セッション管理
+    nginx.ingress.kubernetes.io/limit-rps: "5" # DDOS対策
 spec:
   ingressClassName: nginx
   rules:
