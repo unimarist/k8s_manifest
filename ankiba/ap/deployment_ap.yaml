@@ -5,7 +5,7 @@ metadata:
   labels:
     role: ap
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       role: ap
