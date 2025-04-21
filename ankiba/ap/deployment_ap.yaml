@@ -21,7 +21,7 @@ spec:
         - 8.8.8.8
       containers:
       - name: ap
-        image: docker.io/manmaru/ankiba-ap:latest
+        image: ghcr.io/unimarist/ankiba-ap:latest 
         ports:
         - containerPort: 3000
         env:
