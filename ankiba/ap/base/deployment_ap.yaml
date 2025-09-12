@@ -21,7 +21,7 @@ spec:
         - 8.8.8.8
       containers:
       - name: ap
-        image: ghcr.io/unimarist/ankiba-ap:latest 
+        image: ___IMAGE_URL___@___IMAGE_DIGEST___
         ports:
         - containerPort: 3000
         env:
