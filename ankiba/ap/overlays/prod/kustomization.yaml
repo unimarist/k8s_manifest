@@ -4,10 +4,10 @@ kind: Kustomization
 commonLabels:
   app.kubernetes.io/env: production
   app.kubernetes.io/managed-by: kustomize
-namespace: develop #後にprdに変える
+namespace: develop
 
 images:
-- digest: sha256:d478995b037a32e1154f0092287824db101721f8f3a7a3029010fcfc2a86987a
+- digest: sha256:aa67ea0a7b87d75c7f786d174f3a235d32f9edd264137e24a270c43c3169115d
   name: ___IMAGE_URL___@___IMAGE_DIGEST___
   newName: ghcr.io/unimarist/ankiba-ap
 
