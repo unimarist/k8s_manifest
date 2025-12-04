@@ -9,7 +9,7 @@ metadata:
 spec:
   destination:
     namespace: develop
-    server: infra_user@ankiba-cluster
+    server: https://10.0.1.193:6443
   project: ankiba
   source:
     kustomize:
