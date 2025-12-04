@@ -13,7 +13,7 @@ spec:
   project: ankiba
   source:
     kustomize:
-    path: ankiba/ap/base
+    path: ankiba/ap/overlays/stg
     repoURL: https://github.com/unimarist/k8s_manifest.git
     targetRevision: main
   syncPolicy:
