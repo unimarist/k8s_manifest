@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+commonLabels:
+  app.kubernetes.io/env: staging
+  app.kubernetes.io/managed-by: kustomize
+namespace: develop
+
+images:
+- digest: sha256:69eaa44c9e717b25c572e74ce1f0fe46ea26f16659812fc0d2a9dc16f38e2ee3
+  name: ___IMAGE_URL___@___IMAGE_DIGEST___
+  newName: ghcr.io/unimarist/ankiba-web
+
+resources:
+- ../../base
