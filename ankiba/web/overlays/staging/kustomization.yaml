@@ -7,7 +7,7 @@ commonLabels:
 namespace: develop
 
 images:
-- digest: sha256:69eaa44c9e717b25c572e74ce1f0fe46ea26f16659812fc0d2a9dc16f38e2ee3
+- digest: sha256:90c94e01c2926be489f1b8ad2277f16de423f85feb8999d7dba01f22e6b641ab
   name: ___IMAGE_URL___@___IMAGE_DIGEST___
   newName: ghcr.io/unimarist/ankiba-web
 
