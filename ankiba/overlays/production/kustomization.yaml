@@ -1,0 +1,6 @@
+resources:
+  - ../ap/overlays/production
+  - ../web/overlays/production
+  - ../ingress/overlays/production
+  - ../prometheus/overlays/production
+  - ../seald_secret/overlays/production

@@ -1,0 +1,6 @@
+resources:
+  - ../ap/overlays/stg
+  - ../web/overlays/staging
+  - ../ingress/overlays/staging
+  - ../prometheus/overlays/staging
+  - ../seald_secret/overlays/staging
