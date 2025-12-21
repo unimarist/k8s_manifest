@@ -1,5 +1,5 @@
 resources:
-  - ../ap/overlays/stg
+  - ../ap/overlays/staging
   - ../web/overlays/staging
   - ../ingress/overlays/staging
   - ../prometheus/overlays/staging
