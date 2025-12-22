@@ -1,0 +1,6 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - tekton-app-pv.yaml
+  - tekton-manifest-pv.yaml
+  - tekton-web-pv.yaml

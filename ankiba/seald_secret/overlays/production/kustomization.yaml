@@ -6,10 +6,5 @@ commonLabels:
   app.kubernetes.io/managed-by: kustomize
 namespace: production
 
-images:
-- digest: sha256:aa67ea0a7b87d75c7f786d174f3a235d32f9edd264137e24a270c43c3169115d
-  name: ___IMAGE_URL___@___IMAGE_DIGEST___
-  newName: ghcr.io/unimarist/ankiba-ap
-
 resources:
 - ../../base
