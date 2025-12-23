@@ -1,0 +1,7 @@
+resources:
+  - ../ingress-nginx
+  - ../prometheus
+  - ../pv
+  - ../rbac
+  - ../seald_secret
+  - ../tekton
