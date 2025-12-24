@@ -1,5 +1,5 @@
 resources:
-  - ../ap/overlays/production
-  - ../web/overlays/production
-  - ../ingress/overlays/production
-  - ../pvc/overlays/production
+  - ../../ap/overlays/production
+  - ../../web/overlays/production
+  - ../../ingress/overlays/production
+  - ../../pvc/overlays/production
