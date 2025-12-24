@@ -4,3 +4,4 @@ resources:
   - seald_regcred.yaml
   - seald_secret_controller.yaml
   - sealed-ap-secret.yaml
+  - git-basic-sealedsecret.yaml

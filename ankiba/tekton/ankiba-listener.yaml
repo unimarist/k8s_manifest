@@ -1,0 +1,30 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: EventListener
+metadata:
+  name: ankiba-listener
+  namespace: develop
+spec:
+  serviceAccountName: tekton-admin
+  triggers:
+  - name: push-events-topic-branches
+    interceptors:
+      - ref:
+          name: "github"
+          kind: ClusterInterceptor
+        params:
+        - name: "secretRef"
+          value:
+            secretName: git-basic-secret
+            secretKey: password
+        - name: "eventTypes"
+          value: ["pull_request"]
+      - ref:
+          name: "cel"
+          kind: ClusterInterceptor
+        params:
+        - name: "filter"
+          value: "body.action == 'closed' && body.pull_request.merged == true"
+    template:
+      ref: ankiba-build-template
+    bindings:
+      - ref: ankiba-build-binding
