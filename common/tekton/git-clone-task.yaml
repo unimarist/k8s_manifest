@@ -13,7 +13,7 @@ metadata:
     app.kubernetes.io/version: "0.10"
     hub.tekton.dev/catalog: tekton
   name: git-clone
-  namespace: develop
+  namespace: infra
   resourceVersion: "484907"
   uid: fa87baef-4d15-41e3-bfb8-71cc3ba19973
 spec:

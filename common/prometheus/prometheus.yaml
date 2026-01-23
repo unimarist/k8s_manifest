@@ -32,13 +32,13 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: prometheus
-  namespace: develop
+  namespace: infra
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: prometheus
-  namespace: develop
+  namespace: infra
 ---
 apiVersion: v1
 kind: Service
@@ -62,7 +62,7 @@ metadata:
   labels:
     app: prometheus
   name: prometheus
-  namespace: develop
+  namespace: infra
 spec:
   replicas: 1
   selector:

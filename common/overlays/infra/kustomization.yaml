@@ -2,6 +2,7 @@ resources:
   - ../../ingress-nginx
   - ../../prometheus
   - ../../pv
+  - ../../pvc
   - ../../rbac
   - ../../seald_secret
   - ../../tekton

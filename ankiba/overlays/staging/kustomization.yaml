@@ -2,4 +2,3 @@ resources:
   - ../../ap/overlays/staging
   - ../../web/overlays/staging
   - ../../ingress/overlays/staging
-  - ../../pvc/overlays/staging

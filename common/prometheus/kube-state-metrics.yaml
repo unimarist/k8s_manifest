@@ -121,7 +121,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: kube-state-metrics
-  namespace: develop
+  namespace: infra
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -129,7 +129,7 @@ metadata:
   labels:
     app.kubernetes.io/name: kube-state-metrics
   name: kube-state-metrics
-  namespace: develop
+  namespace: infra
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -137,7 +137,7 @@ metadata:
   labels:
     app.kubernetes.io/name: kube-state-metrics
   name: kube-state-metrics
-  namespace: develop
+  namespace: infra
 spec:
   replicas: 1
   selector:
@@ -169,7 +169,7 @@ metadata:
   labels:
     app.kubernetes.io/name: kube-state-metrics
   name: kube-state-metrics
-  namespace: develop
+  namespace: infra
 spec:
   ports:
   - name: http
