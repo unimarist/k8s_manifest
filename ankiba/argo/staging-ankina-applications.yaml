@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: staging-ankiba
-  namespace: argocd
+  namespace: infra
   labels:
     app: ankiba
     environment: develop
