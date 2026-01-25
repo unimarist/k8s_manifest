@@ -1,6 +1,6 @@
 controller:
   # nginxのreplica数
-  replicaCount: 2
+  replicaCount: 1
 
   # AWS側のLBとしてNLBを指定
   service:
