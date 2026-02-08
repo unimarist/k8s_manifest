@@ -26200,7 +26200,6 @@ spec:
         app: tekton-pipelines-resolvers
         version: "v1.6.0"
     spec:
-      hostNetwork: true # AWS 上のk8sでcalicoを使うことによるwebhookに疎通できない問題( https://medium.com/@denisstortisilva/kubernetes-eks-calico-and-custom-admission-webhooks-a2956b49bd0d ) の回避
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -26435,7 +26434,7 @@ spec:
         app: tekton-pipelines-webhook
         version: "v1.6.0"
     spec:
-      hostNetwork: true # AWS 上のk8sでcalicoを使うことによるwebhookに疎通できない問題( https://medium.com/@denisstortisilva/kubernetes-eks-calico-and-custom-admission-webhooks-a2956b49bd0d ) の回避
+      hostNetwork: true
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -26589,158 +26588,3 @@ spec:
     app.kubernetes.io/part-of: tekton-pipelines
 
 ---
-infra@ip-10-0-0-46:~/k8s_manifest/common/tekton$ client_loop: send disconnect: Broken pipe
-oomura@oomuranoMacBook-Pro .ssh % ssh -i common_work infra@3.112.130.7
-Welcome to Ubuntu 22.04.2 LTS (GNU/Linux 6.8.0-1044-aws x86_64)
-
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/advantage
-
-  System information as of Mon Feb  2 00:17:01 UTC 2026
-
-
-
- * Ubuntu Pro delivers the most comprehensive open source security and
-   compliance features.
-
-   https://ubuntu.com/aws/pro
-
-Expanded Security Maintenance for Applications is not enabled.
-
-102 updates can be applied immediately.
-To see these additional updates run: apt list --upgradable
-
-Enable ESM Apps to receive additional future security updates.
-See https://ubuntu.com/esm or run: sudo pro status
-
-
-The list of available updates is more than a week old.
-To check for new updates run: sudo apt update
-New release '24.04.3 LTS' available.
-Run 'do-release-upgrade' to upgrade to it.
-
-
-Last login: Sun Feb  1 23:54:56 2026 from 60.143.210.228
-infra@ip-10-0-0-46:~$ cd k8s_manifest/
-infra@ip-10-0-0-46:~/k8s_manifest$ ls -l
-total 12
--rw-rw-r--  1 infra infra   62 Jan 18 09:37 README.md
-drwxrwxr-x  7 infra infra 4096 Jan 23 06:37 ankiba
-drwxrwxr-x 13 infra infra 4096 Jan 23 06:37 common
-infra@ip-10-0-0-46:~/k8s_manifest$ cd common/
-infra@ip-10-0-0-46:~/k8s_manifest/common$ cd tekton/
-infra@ip-10-0-0-46:~/k8s_manifest/common/tekton$ ls -l
-total 1588
--rw-rw-r-- 1 infra infra    4953 Jan 23 06:37 buildah-task.yaml
--rw-rw-r-- 1 infra infra    9542 Jan 23 06:37 git-clone-task.yaml
--rw-rw-r-- 1 infra infra     206 Jan 23 06:37 kustomization.yaml
--rw-rw-r-- 1 infra infra     886 Jan 23 06:37 kustomize-task.yaml
--rw-rw-r-- 1 infra infra     121 Jan 23 06:37 tekton-admin-sa.yaml
--rw-rw-r-- 1 infra infra    1877 Jan 23 06:37 tekton-admin-triggers-rbac.yaml
--rw-rw-r-- 1 infra infra 1586826 Feb  2 00:06 tekton-pipelines.yaml
-infra@ip-10-0-0-46:~/k8s_manifest/common/tekton$ vi tekton-pipelines.yaml 
-infra@ip-10-0-0-46:~/k8s_manifest/common/tekton$ vi tekton-pipelines.yaml 
-infra@ip-10-0-0-46:~/k8s_manifest/common/tekton$ vi tekton-pipelines.yaml 
-infra@ip-10-0-0-46:~/k8s_manifest/common/tekton$ vi tekton-pipelines.yaml 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            periodSeconds: 10
-            timeoutSeconds: 5
-          readinessProbe:
-            httpGet:
-              path: /readiness
-              port: probes
-              scheme: HTTP
-            initialDelaySeconds: 5
-            periodSeconds: 10
-            timeoutSeconds: 5
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app.kubernetes.io/name: webhook
-    app.kubernetes.io/component: webhook
-    app.kubernetes.io/instance: default
-    app.kubernetes.io/version: "v1.6.0"
-    app.kubernetes.io/part-of: tekton-pipelines
-    # tekton.dev/release value replaced with inputs.params.versionTag in pipeline/tekton/publish.yaml
-    pipeline.tekton.dev/release: "v1.6.0"
-    # labels below are related to istio and should not be used for resource lookup
-    app: tekton-pipelines-webhook
-    version: "v1.6.0"
-  name: tekton-pipelines-webhook
-  namespace: tekton-pipelines
-spec:
-  ports:
-    # Define metrics and profiling for them to be accessible within service meshes.
-    - name: http-metrics
-      port: 9090
-      targetPort: metrics
-    - name: http-profiling
-      port: 8008
-      targetPort: profiling
-    - name: https-webhook
-      port: 443
-      targetPort: https-webhook
-    - name: probes
-      port: 8080
-      targetPort: probes
-  selector:
-    app.kubernetes.io/name: webhook
-    app.kubernetes.io/component: webhook
-    app.kubernetes.io/instance: default
-    app.kubernetes.io/part-of: tekton-pipelines
-
----
-                                                                                                                                                     26590,1       Bot
-
