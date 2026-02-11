@@ -1,6 +1,4 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - v3.0.0-install.yaml
   - argocd-server-ingress.yaml
-  - infra-applications.yaml

@@ -1,4 +1,6 @@
 resources:
+  - ../../argo
+  - ../../namespace
   - ../../prometheus
   - ../../pv
   - ../../pvc
