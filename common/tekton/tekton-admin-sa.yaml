@@ -4,4 +4,3 @@ metadata:
   name: tekton-admin
 secrets:
   - name: git-basic-secret
-  - name: regcred

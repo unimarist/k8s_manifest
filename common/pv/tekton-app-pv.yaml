@@ -9,5 +9,5 @@ spec:
   - ReadWriteMany
  persistentVolumeReclaimPolicy: Recycle
  nfs:
-  server: 10.0.1.193
+  server: 10.0.1.76 # private ip for common-control-plane-node
   path: /tekton/app

@@ -1,3 +1,3 @@
 # k8s_manifest
 
-k8s環境を構成管理するリポジトリ
+Repository for managing the configuration of a Kubernetes environment
