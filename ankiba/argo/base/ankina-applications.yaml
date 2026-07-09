@@ -2,14 +2,14 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: staging-ankiba
-  namespace: infra
+  namespace: staging
   labels:
     app: ankiba
-    environment: develop
+    environment: staging
 spec:
   destination:
-    namespace: develop
-    server: https://10.0.1.193:6443
+    namespace: staging
+    server: https://10.0.1.185:6443 # private ip for common-control-plane-node
   project: ankiba
   source:
     kustomize:

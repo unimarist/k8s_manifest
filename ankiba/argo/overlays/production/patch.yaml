@@ -1,0 +1,11 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ankiba
+  labels:
+    environment: production
+spec:
+  destination:
+    namespace: production
+  source:
+    path: ankiba/overlays/production
