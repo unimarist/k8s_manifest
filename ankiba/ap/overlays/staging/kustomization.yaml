@@ -4,12 +4,66 @@ kind: Kustomization
 commonLabels:
   app.kubernetes.io/env: staging
   app.kubernetes.io/managed-by: kustomize
-namespace: develop
+namespace: staging
 
 images:
 - digest: sha256:aa67ea0a7b87d75c7f786d174f3a235d32f9edd264137e24a270c43c3169115d
   name: ___IMAGE_URL___@___IMAGE_DIGEST___
   newName: ghcr.io/unimarist/ankiba-ap
+
+replacements:
+- source:
+    kind: Kustomization
+    fieldPath: namespace # "staging" を取得（production環境なら "production" になる）
+  targets:
+  - select:
+      kind: Deployment
+      name: ankiba-ap-deployment
+    fieldPaths:
+    # 1. 自身のmetadataラベル
+    - metadata.labels.role
+    # 2. specのセレクタ
+    - spec.selector.matchLabels.role
+    # 3. Podテンプレートのラベル
+    - spec.template.metadata.labels.role
+    
+    # delimiterとindexのルールはすべて同じため、上の3つはまとめて設定可能
+    options:
+      delimiter: "-"
+      index: 2  # 「ankiba-ap-ENV_PLACEHOLDER」の「ENV_PLACEHOLDER」(3番目、index 2)を置換
+
+  - select:
+      kind: Service
+      name: service-ap
+    fieldPaths:
+    - metadata.labels.role       # Service自身のラベル
+    - spec.selector.role         # 転送先Podを探すためのセレクタ
+    options:
+      delimiter: "-"
+      index: 2                   # 「ankiba-ap-ENV_PLACEHOLDER」なので index は 2
+
+- source:
+    kind: Kustomization
+    fieldPath: namespace
+  targets:
+  - select:
+      kind: Deployment
+      name: ankiba-ap-deployment
+    fieldPaths:
+    # 4. コンテナ名
+    # ※最初はプレースホルダー付きのコンテナ名「ankiba-ap-ENV_PLACEHOLDER」を検索対象にする
+    - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].name
+    
+    # 5~9. 各環境変数のSecret名
+    - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=RAILS_MASTER_KEY].valueFrom.secretKeyRef.name
+    - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=DB_NAME].valueFrom.secretKeyRef.name
+    - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=DB_USERNAME].valueFrom.secretKeyRef.name
+    - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=DB_PASSWORD].valueFrom.secretKeyRef.name
+    - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=DB_HOSTNAME].valueFrom.secretKeyRef.name
+    
+    options:
+      delimiter: "-"
+      index: 3  # 「ankiba-ap-secret-ENV_PLACEHOLDER」などの最後(4番目、index 3)を置換
 
 resources:
 - ../../base
