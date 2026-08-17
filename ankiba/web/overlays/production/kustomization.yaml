@@ -11,5 +11,37 @@ images:
   name: ___IMAGE_URL___@___IMAGE_DIGEST___
   newName: ghcr.io/unimarist/ankiba-web
 
+replacements:
+- source:
+    kind: Kustomization
+    fieldPath: namespace # "production" を取得
+  targets:
+  - select:
+      kind: Deployment
+      name: ankiba-web-deployment
+    fieldPaths:
+    # 1. 自身のmetadataラベル
+    - metadata.labels.role
+    # 2. specのセレクタ
+    - spec.selector.matchLabels.role
+    # 3. Podテンプレートのラベル
+    - spec.template.metadata.labels.role
+    - spec.template.spec.containers.[name=ankiba-web-ENV_PLACEHOLDER].name
+
+    # delimiterとindexのルールはすべて同じため、上はまとめて設定可能
+    options:
+      delimiter: "-"
+      index: 2  # 「ankiba-web-ENV_PLACEHOLDER」の「ENV_PLACEHOLDER」(3番目、index 2)を置換
+
+  - select:
+      kind: Service
+      name: service-web
+    fieldPaths:
+    - metadata.labels.role       # Service自身のラベル
+    - spec.selector.role         # 転送先Podを探すためのセレクタ
+    options:
+      delimiter: "-"
+      index: 2                   # 「ankiba-web-ENV_PLACEHOLDER」なので index は 2
+
 resources:
 - ../../base

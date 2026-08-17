@@ -14,6 +14,25 @@ images:
 replacements:
 - source:
     kind: Kustomization
+    fieldPath: namespace
+  targets:
+  - select:
+      kind: Deployment
+      name: ankiba-ap-deployment
+    fieldPaths:
+    # 各環境変数のSecret名
+    - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=RAILS_MASTER_KEY].valueFrom.secretKeyRef.name
+    - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=DB_NAME].valueFrom.secretKeyRef.name
+    - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=DB_USERNAME].valueFrom.secretKeyRef.name
+    - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=DB_PASSWORD].valueFrom.secretKeyRef.name
+    - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=DB_HOSTNAME].valueFrom.secretKeyRef.name
+
+    options:
+      delimiter: "-"
+      index: 3  # 「ankiba-ap-secret-ENV_PLACEHOLDER」などの最後(4番目、index 3)を置換
+
+- source:
+    kind: Kustomization
     fieldPath: namespace # "staging" を取得（production環境なら "production" になる）
   targets:
   - select:
@@ -26,8 +45,9 @@ replacements:
     - spec.selector.matchLabels.role
     # 3. Podテンプレートのラベル
     - spec.template.metadata.labels.role
+    - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].name
     
-    # delimiterとindexのルールはすべて同じため、上の3つはまとめて設定可能
+    # delimiterとindexのルールはすべて同じため、上はまとめて設定可能
     options:
       delimiter: "-"
       index: 2  # 「ankiba-ap-ENV_PLACEHOLDER」の「ENV_PLACEHOLDER」(3番目、index 2)を置換
@@ -41,29 +61,6 @@ replacements:
     options:
       delimiter: "-"
       index: 2                   # 「ankiba-ap-ENV_PLACEHOLDER」なので index は 2
-
-- source:
-    kind: Kustomization
-    fieldPath: namespace
-  targets:
-  - select:
-      kind: Deployment
-      name: ankiba-ap-deployment
-    fieldPaths:
-    # 4. コンテナ名
-    # ※最初はプレースホルダー付きのコンテナ名「ankiba-ap-ENV_PLACEHOLDER」を検索対象にする
-    - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].name
-    
-    # 5~9. 各環境変数のSecret名
-    - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=RAILS_MASTER_KEY].valueFrom.secretKeyRef.name
-    - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=DB_NAME].valueFrom.secretKeyRef.name
-    - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=DB_USERNAME].valueFrom.secretKeyRef.name
-    - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=DB_PASSWORD].valueFrom.secretKeyRef.name
-    - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=DB_HOSTNAME].valueFrom.secretKeyRef.name
-    
-    options:
-      delimiter: "-"
-      index: 3  # 「ankiba-ap-secret-ENV_PLACEHOLDER」などの最後(4番目、index 3)を置換
 
 resources:
 - ../../base
