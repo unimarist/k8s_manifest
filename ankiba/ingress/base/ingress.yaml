@@ -4,13 +4,12 @@ metadata:
   name: ankiba-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/affinity: "cookie" # セッション管理
-    nginx.ingress.kubernetes.io/limit-rps: "5" # DDOS対策
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.ingress.kubernetes.io/limit-rps: "5"
 spec:
   ingressClassName: nginx
   rules:
-  - host: ankiba.net
-    http:
+  - http:
       paths:
       - path: /
         pathType: Prefix

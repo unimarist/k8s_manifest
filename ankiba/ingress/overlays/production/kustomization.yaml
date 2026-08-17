@@ -8,3 +8,12 @@ namespace: production
 
 resources:
 - ../../base
+
+patches:
+- target:
+    kind: Ingress
+    name: ankiba-ingress
+  patch: |-
+    - op: add
+      path: /spec/rules/0/host
+      value: ankiba.unimarist.com

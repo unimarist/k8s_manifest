@@ -4,7 +4,16 @@ kind: Kustomization
 commonLabels:
   app.kubernetes.io/env: staging
   app.kubernetes.io/managed-by: kustomize
-namespace: develop
+namespace: staging
 
 resources:
 - ../../base
+
+patches:
+- target:
+    kind: Ingress
+    name: ankiba-ingress
+  patch: |-
+    - op: add
+      path: /spec/rules/0/host
+      value: ankiba-staging.unimarist.com
