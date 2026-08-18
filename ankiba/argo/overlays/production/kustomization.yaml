@@ -4,7 +4,7 @@ kind: Kustomization
 commonLabels:
   app.kubernetes.io/env: production
   app.kubernetes.io/managed-by: kustomize
-namespace: production
+namespace: infra
 
 resources:
 - ../../base

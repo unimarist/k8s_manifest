@@ -4,7 +4,7 @@ kind: Kustomization
 commonLabels:
   app.kubernetes.io/env: staging
   app.kubernetes.io/managed-by: kustomize
-namespace: staging
+namespace: infra
 
 resources:
 - ../../base
