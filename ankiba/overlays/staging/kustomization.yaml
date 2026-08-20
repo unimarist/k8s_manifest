@@ -1,4 +1,7 @@
 resources:
+  - ../../argo/overlays/staging
+  - ../../sealed_secret/overlays/staging
+  - ../../tekton/overlays/staging
   - ../../ap/overlays/staging
   - ../../web/overlays/staging
   - ../../ingress/overlays/staging
