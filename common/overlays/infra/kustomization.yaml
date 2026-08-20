@@ -5,5 +5,5 @@ resources:
   - ../../pv
   - ../../pvc
   - ../../rbac
-  - ../../seald_secret
+  - ../../sealed_secret
   - ../../tekton
