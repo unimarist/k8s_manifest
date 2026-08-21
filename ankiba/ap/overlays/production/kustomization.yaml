@@ -13,8 +13,7 @@ images:
 
 replacements:
 - source:
-    kind: Kustomization
-    fieldPath: namespace
+    value: production
   targets:
   - select:
       kind: Deployment
@@ -31,8 +30,7 @@ replacements:
       index: 3  # 「ankiba-ap-secret-ENV_PLACEHOLDER」などの最後(4番目、index 3)を置換
 
 - source:
-    kind: Kustomization
-    fieldPath: namespace # "production" を取得（staging環境なら "staging" になる)
+    value: production
   targets:
   - select:
       kind: Deployment

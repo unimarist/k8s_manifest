@@ -13,8 +13,7 @@ images:
 
 replacements:
 - source:
-    kind: Kustomization
-    fieldPath: namespace # "production" を取得
+    value: production
   targets:
   - select:
       kind: Deployment

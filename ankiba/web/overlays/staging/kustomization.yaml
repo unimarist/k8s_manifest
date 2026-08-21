@@ -13,8 +13,7 @@ images:
 
 replacements:
 - source:
-    kind: Kustomization
-    fieldPath: namespace # "staging" を取得（production環境なら "production" になる）
+    value: staging
   targets:
   - select:
       kind: Deployment
