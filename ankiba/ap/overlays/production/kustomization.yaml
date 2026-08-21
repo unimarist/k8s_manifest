@@ -6,6 +6,11 @@ commonLabels:
   app.kubernetes.io/managed-by: kustomize
 namespace: production
 
+configMapGenerator:
+- name: env-config
+  literals:
+  - ENV=production
+
 images:
 - digest: sha256:aa67ea0a7b87d75c7f786d174f3a235d32f9edd264137e24a270c43c3169115d
   name: ___IMAGE_URL___@___IMAGE_DIGEST___
@@ -13,7 +18,9 @@ images:
 
 replacements:
 - source:
-    fieldPath: namespace
+    kind: ConfigMap
+    name: env-config
+    fieldPath: data.ENV
   targets:
   - select:
       kind: Deployment
@@ -30,7 +37,9 @@ replacements:
       index: 3  # 「ankiba-ap-secret-ENV_PLACEHOLDER」などの最後(4番目、index 3)を置換
 
 - source:
-    fieldPath: namespace
+    kind: ConfigMap
+    name: env-config
+    fieldPath: data.ENV
   targets:
   - select:
       kind: Deployment
