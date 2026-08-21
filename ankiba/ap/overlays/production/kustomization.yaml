@@ -7,7 +7,7 @@ commonLabels:
 namespace: production
 
 configMapGenerator:
-- name: env-config
+- name: ap-env-config-prd
   literals:
   - ENV=production
 
@@ -19,7 +19,7 @@ images:
 replacements:
 - source:
     kind: ConfigMap
-    name: env-config
+    name: ap-env-config-prd
     fieldPath: data.ENV
   targets:
   - select:
@@ -38,7 +38,7 @@ replacements:
 
 - source:
     kind: ConfigMap
-    name: env-config
+    name: ap-env-config-prd
     fieldPath: data.ENV
   targets:
   - select:

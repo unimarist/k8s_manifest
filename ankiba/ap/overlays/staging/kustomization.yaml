@@ -7,7 +7,7 @@ commonLabels:
 namespace: staging
 
 configMapGenerator:
-- name: env-config
+- name: ap-env-config-stg
   literals:
   - ENV=staging
 
@@ -19,7 +19,7 @@ images:
 replacements:
 - source:
     kind: ConfigMap
-    name: env-config
+    name: ap-env-config-stg
     fieldPath: data.ENV
   targets:
   - select:
@@ -39,7 +39,7 @@ replacements:
 
 - source:
     kind: ConfigMap
-    name: env-config
+    name: ap-env-config-stg
     fieldPath: data.ENV
   targets:
   - select:
