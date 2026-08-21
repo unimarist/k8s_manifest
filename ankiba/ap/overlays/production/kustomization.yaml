@@ -13,7 +13,7 @@ images:
 
 replacements:
 - source:
-    value: production
+    fieldPath: namespace
   targets:
   - select:
       kind: Deployment
@@ -30,7 +30,7 @@ replacements:
       index: 3  # 「ankiba-ap-secret-ENV_PLACEHOLDER」などの最後(4番目、index 3)を置換
 
 - source:
-    value: production
+    fieldPath: namespace
   targets:
   - select:
       kind: Deployment

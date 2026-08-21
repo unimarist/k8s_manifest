@@ -13,7 +13,7 @@ images:
 
 replacements:
 - source:
-    value: production
+    fieldPath: namespace
   targets:
   - select:
       kind: Deployment

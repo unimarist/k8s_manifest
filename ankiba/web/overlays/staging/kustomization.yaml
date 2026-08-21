@@ -13,7 +13,7 @@ images:
 
 replacements:
 - source:
-    value: staging
+    fieldPath: namespace
   targets:
   - select:
       kind: Deployment
