@@ -15,6 +15,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: service-web
+            name: ankiba-service-web
             port:
               number: 80
