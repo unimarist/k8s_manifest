@@ -2,6 +2,7 @@ apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
   name: ankiba-build-template
+  namespace: infra
 spec:
   params:
     - name: ankiba-url

@@ -2,6 +2,7 @@ apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
   name: ankiba-w-build-binding
+  namespace: infra
 spec:
   params:
     - name: ankiba-web-url
