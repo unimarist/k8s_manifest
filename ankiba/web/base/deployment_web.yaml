@@ -21,3 +21,5 @@ spec:
         image: ___IMAGE_URL___@___IMAGE_DIGEST___
         ports:
         - containerPort: 80
+      imagePullSecrets:
+      - name: git-basic-secret
