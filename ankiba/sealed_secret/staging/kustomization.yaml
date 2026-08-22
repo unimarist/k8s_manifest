@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - ankiba-ap-sealedsecret-staging.yaml
   - git-basic-sealedsecret-staging.yaml
+  - image-basic-sealedsecret-staging.yaml

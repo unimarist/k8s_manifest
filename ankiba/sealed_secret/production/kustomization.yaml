@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - ankiba-ap-sealedsecret-production.yaml
   - git-basic-sealedsecret-production.yaml
+  - image-basic-sealedsecret-production.yaml
