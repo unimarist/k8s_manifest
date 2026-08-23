@@ -2,7 +2,7 @@ apiVersion: triggers.tekton.dev/v1beta1
 kind: EventListener
 metadata:
   name: ankiba-w-listener
-  namespace: infra
+  namespace: staging
 spec:
   serviceAccountName: tekton-admin
   triggers:

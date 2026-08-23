@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: ankiba-w-build-pipeline
-  namespace: infra
+  namespace: staging
 spec:
   workspaces:
     - name: tekton-web-pv
