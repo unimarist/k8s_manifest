@@ -4,3 +4,4 @@ metadata:
   name: tekton-admin
 secrets:
   - name: git-basic-secret
+  - name: image-basic-secret
