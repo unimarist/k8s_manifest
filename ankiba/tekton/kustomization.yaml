@@ -11,3 +11,4 @@ resources:
   - ankiba-web-build-template.yaml
   - ankiba-web-el-ingress.yaml
   - ankiba-web-listener.yaml
+  - tekton-admin-sa.yaml
