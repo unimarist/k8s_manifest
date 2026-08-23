@@ -12,3 +12,4 @@ resources:
   - ankiba-web-el-ingress.yaml
   - ankiba-web-listener.yaml
   - tekton-admin-sa.yaml
+  - tekton-admin-triggers-rbac.yaml
