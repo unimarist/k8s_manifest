@@ -5,4 +5,4 @@ resources:
   - ../../ap/overlays/staging
   - ../../web/overlays/staging
   - ../../ingress/overlays/staging
-  - ../../pvc
+  - ../../pvc/overlays/staging
