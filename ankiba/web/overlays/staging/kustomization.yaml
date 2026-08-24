@@ -7,47 +7,47 @@ commonLabels:
 namespace: staging
 
 configMapGenerator:
-- name: web-env-config-stg
-  literals:
+- literals:
   - ENV=staging
+  name: web-env-config-stg
 
 images:
-- digest: sha256:90c94e01c2926be489f1b8ad2277f16de423f85feb8999d7dba01f22e6b641ab
+- digest: sha256:a9144430b8b1d8b3ed9a7d322a76e50a95d2b2caa75cfd6874dcaa07c5087bb3
   name: ___IMAGE_URL___@___IMAGE_DIGEST___
   newName: ghcr.io/unimarist/ankiba-web
 
-replacements:
-- source:
-    kind: ConfigMap
-    name: web-env-config-stg
-    fieldPath: data.ENV
-  targets:
-  - select:
-      kind: Deployment
-      name: ankiba-web-deployment
-    fieldPaths:
     # 1. 自身のmetadataラベル
-    - metadata.labels.role
     # 2. specのセレクタ
-    - spec.selector.matchLabels.role
     # 3. Podテンプレートのラベル
-    - spec.template.metadata.labels.role
-    - spec.template.spec.containers.[name=ankiba-web-ENV_PLACEHOLDER].name
  
     # delimiterとindexのルールはすべて同じため、上はまとめて設定可能
-    options:
-      delimiter: "-"
-      index: 2  # 「ankiba-web-ENV_PLACEHOLDER」の「ENV_PLACEHOLDER」(3番目、index 2)を置換
 
-  - select:
+replacements:
+- source:
+    fieldPath: data.ENV
+    kind: ConfigMap
+    name: web-env-config-stg
+  targets:
+  - fieldPaths:
+    - metadata.labels.role
+    - spec.selector.matchLabels.role
+    - spec.template.metadata.labels.role
+    - spec.template.spec.containers.[name=ankiba-web-ENV_PLACEHOLDER].name
+    options:
+      delimiter: '-'
+      index: 2
+    select:
+      kind: Deployment
+      name: ankiba-web-deployment
+  - fieldPaths:
+    - metadata.labels.role
+    - spec.selector.role
+    options:
+      delimiter: '-'
+      index: 2
+    select:
       kind: Service
       name: service-web
-    fieldPaths:
-    - metadata.labels.role       # Service自身のラベル
-    - spec.selector.role         # 転送先Podを探すためのセレクタ
-    options:
-      delimiter: "-"
-      index: 2                   # 「ankiba-web-ENV_PLACEHOLDER」なので index は 2
 
 resources:
 - ../../base
