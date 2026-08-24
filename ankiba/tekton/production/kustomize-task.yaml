@@ -19,7 +19,7 @@ spec:
       type: string
       default: "kustomize $@"
     - name: KUSTOMIZE_IMAGE
-      default: k8s.gcr.io/kustomize/kustomize:v4.0.2
+      default: registry.k8s.io/kustomize/kustomize:v5.4.3
       description: kustomize wrapper image
   steps:
     - name: kustomize
