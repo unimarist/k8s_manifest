@@ -1,8 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ankiba-el-ingress
-  namespace: infra
+  name: ankiba-w-el-ingress
+  namespace: staging
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/affinity: "cookie" # セッション管理
@@ -12,10 +12,10 @@ spec:
   rules:
   - http:
       paths:
-      - path: /el/ankiba
+      - path: /el/ankiba-web
         pathType: Prefix
         backend:
           service:
-            name: el-ankiba-listener
+            name: el-ankiba-w-listener
             port:
               number: 8080

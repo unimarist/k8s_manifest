@@ -1,13 +1,13 @@
 apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
-  name: ankiba-build-binding
-  namespace: infra
+  name: ankiba-w-build-binding
+  namespace: staging
 spec:
   params:
-    - name: ankiba-url
+    - name: ankiba-web-url
       value: "https://github.com/$(body.repository.full_name)"
-    - name: ankiba-revision
+    - name: ankiba-web-revision
       value: $(body.head_commit.id)
     - name: ankiba-manifests-username
       value: $(body.sender.login)

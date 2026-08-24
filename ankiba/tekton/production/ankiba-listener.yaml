@@ -1,8 +1,7 @@
 apiVersion: triggers.tekton.dev/v1beta1
 kind: EventListener
 metadata:
-  name: ankiba-w-listener
-  namespace: staging
+  name: ankiba-listener
 spec:
   serviceAccountName: tekton-admin
   triggers:
@@ -25,6 +24,6 @@ spec:
         - name: "filter"
           value: "body.action == 'closed' && body.pull_request.merged == true"
     template:
-      ref: ankiba-w-build-template
+      ref: ankiba-build-template
     bindings:
-      - ref: ankiba-w-build-binding
+      - ref: ankiba-build-binding
