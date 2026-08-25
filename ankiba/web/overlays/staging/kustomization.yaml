@@ -47,7 +47,7 @@ replacements:
       index: 2
     select:
       kind: Service
-      name: service-web
+      name: ankiba-service-web
 
 resources:
 - ../../base
