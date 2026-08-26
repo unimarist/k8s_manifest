@@ -7,66 +7,66 @@ commonLabels:
 namespace: production
 
 configMapGenerator:
-- name: ap-env-config-prd
-  literals:
+- literals:
   - ENV=production
+  name: ap-env-config-prd
 
 images:
-- digest: sha256:aa67ea0a7b87d75c7f786d174f3a235d32f9edd264137e24a270c43c3169115d
+- digest: sha256:0d338595bd63f7c256d3f36afa8525fd812c295c9b206e495dac21cafaefe84f
   name: ___IMAGE_URL___@___IMAGE_DIGEST___
   newName: ghcr.io/unimarist/ankiba-ap
 
+
+
+    # 1. 自身のmetadataラベル
+    # 2. specのセレクタ
+    # 3. Podテンプレートのラベル
+    
+    # delimiterとindexのルールはすべて同じため、上の3つはまとめて設定可能
+
 replacements:
 - source:
+    fieldPath: data.ENV
     kind: ConfigMap
     name: ap-env-config-prd
-    fieldPath: data.ENV
   targets:
-  - select:
-      kind: Deployment
-      name: ankiba-ap-deployment
-    fieldPaths:
+  - fieldPaths:
     - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=RAILS_MASTER_KEY].valueFrom.secretKeyRef.name
     - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=DB_NAME].valueFrom.secretKeyRef.name
     - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=DB_USERNAME].valueFrom.secretKeyRef.name
     - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=DB_PASSWORD].valueFrom.secretKeyRef.name
     - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=DB_HOSTNAME].valueFrom.secretKeyRef.name
-
     options:
-      delimiter: "-"
-      index: 3  # 「ankiba-ap-secret-ENV_PLACEHOLDER」などの最後(4番目、index 3)を置換
-
-- source:
-    kind: ConfigMap
-    name: ap-env-config-prd
-    fieldPath: data.ENV
-  targets:
-  - select:
+      delimiter: '-'
+      index: 3
+    select:
       kind: Deployment
       name: ankiba-ap-deployment
-    fieldPaths:
-    # 1. 自身のmetadataラベル
+- source:
+    fieldPath: data.ENV
+    kind: ConfigMap
+    name: ap-env-config-prd
+  targets:
+  - fieldPaths:
     - metadata.labels.role
-    # 2. specのセレクタ
     - spec.selector.matchLabels.role
-    # 3. Podテンプレートのラベル
     - spec.template.metadata.labels.role
     - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].name
-    
-    # delimiterとindexのルールはすべて同じため、上の3つはまとめて設定可能
     options:
-      delimiter: "-"
-      index: 2  # 「ankiba-ap-ENV_PLACEHOLDER」の「ENV_PLACEHOLDER」(3番目、index 2)を置換
-
-  - select:
+      delimiter: '-'
+      index: 2
+    select:
+      kind: Deployment
+      name: ankiba-ap-deployment
+  - fieldPaths:
+    - metadata.labels.role
+    - spec.selector.role
+    options:
+      delimiter: '-'
+      index: 2
+    select:
       kind: Service
       name: ankiba-service-ap
-    fieldPaths:
-    - metadata.labels.role       # Service自身のラベル
-    - spec.selector.role         # 転送先Podを探すためのセレクタ
-    options:
-      delimiter: "-"
-      index: 2                   # 「ankiba-ap-ENV_PLACEHOLDER」なので index は 2
 
 resources:
 - ../../base
