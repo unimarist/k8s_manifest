@@ -61,7 +61,7 @@ replacements:
 
   - select:
       kind: Service
-      name: service-ap
+      name: ankiba-service-ap
     fieldPaths:
     - metadata.labels.role       # Service自身のラベル
     - spec.selector.role         # 転送先Podを探すためのセレクタ
