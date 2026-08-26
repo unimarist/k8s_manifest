@@ -11,7 +11,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /el/ankiba
+      - path: /el/ankiba-staging
         pathType: Prefix
         backend:
           service:
