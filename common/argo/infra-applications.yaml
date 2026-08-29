@@ -15,7 +15,7 @@ spec:
     kustomize:
     path: common/overlays/infra
     repoURL: https://github.com/unimarist/k8s_manifest.git
-    targetRevision: main
+    targetRevision: infra
   syncPolicy:
     automated:
       prune: true
