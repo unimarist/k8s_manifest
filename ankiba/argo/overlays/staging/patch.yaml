@@ -5,10 +5,10 @@ metadata:
   namespace: infra
   labels:
     app: ankiba
-    environment: production
+    environment: staging
 spec:
   destination:
-    namespace: production
+    namespace: staging
   source:
-    path: ankiba/overlays/production
-    targetRevision: production
+    path: ankiba/overlays/staging
+    targetRevision: staging
