@@ -3,6 +3,7 @@ resources:
   - ../../namespace
   - ../../prometheus
   - ../../pv
+  - ../../pvc
   - ../../rbac
   - ../../sealed_secret
   - ../../tekton
