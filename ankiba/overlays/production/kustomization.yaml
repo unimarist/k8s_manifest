@@ -1,0 +1,7 @@
+resources:
+  - ../../argo/overlays/production
+  - ../../sealed_secret/production
+  - ../../ap/overlays/production
+  - ../../web/overlays/production
+  - ../../ingress/overlays/production
+  - ../../pvc/overlays/production

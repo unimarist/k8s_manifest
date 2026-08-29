@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: ankiba-ap-deployment
   labels:
-    role: ap
+    role: ankiba-ap-ENV_PLACEHOLDER
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      role: ap
+      role: ankiba-ap-ENV_PLACEHOLDER
   template:
     metadata:
       labels:
-        role: ap
+        role: ankiba-ap-ENV_PLACEHOLDER
     spec:
       nodeSelector:
         role: worker
@@ -20,7 +20,7 @@ spec:
         nameservers:
         - 8.8.8.8
       containers:
-      - name: ap
+      - name: ankiba-ap-ENV_PLACEHOLDER
         image: ___IMAGE_URL___@___IMAGE_DIGEST___
         ports:
         - containerPort: 3000
@@ -28,27 +28,27 @@ spec:
           - name: RAILS_MASTER_KEY
             valueFrom:
               secretKeyRef:
-                name: ap-secret
+                name: ankiba-ap-secret-ENV_PLACEHOLDER
                 key: RAILS_MASTER_KEY
           - name: DB_NAME
             valueFrom:
               secretKeyRef:
-                name: ap-secret
+                name: ankiba-ap-secret-ENV_PLACEHOLDER
                 key: DB_NAME
           - name: DB_USERNAME
             valueFrom:
               secretKeyRef:
-                name: ap-secret
+                name: ankiba-ap-secret-ENV_PLACEHOLDER
                 key: DB_USERNAME
           - name: DB_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: ap-secret
+                name: ankiba-ap-secret-ENV_PLACEHOLDER
                 key: DB_PASSWORD
           - name: DB_HOSTNAME
             valueFrom:
               secretKeyRef:
-                name: ap-secret
+                name: ankiba-ap-secret-ENV_PLACEHOLDER
                 key: DB_HOSTNAME
         command:
           - /bin/sh
@@ -56,4 +56,4 @@ spec:
           - -c
           - bundle exec rake db:migrate RAILS_ENV=production && bundle exec unicorn_rails -c /var/www/rails/ankiba/config/unicorn.conf.rb -E production
       imagePullSecrets:
-      - name: regcred
+      - name: image-basic-secret

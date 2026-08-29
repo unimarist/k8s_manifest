@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: common-infra
+  namespace: infra
+  labels:
+    app: common
+    environment: infra
+spec:
+  destination:
+    namespace: infra
+    server: https://10.0.1.185:6443 # private ip for common-control-plane-node
+  project: common-infra
+  source:
+    kustomize:
+    path: common/overlays/infra
+    repoURL: https://github.com/unimarist/k8s_manifest.git
+    targetRevision: infra
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - ApplyOutOfSyncOnly=true 
+      - CreateNamespace=true

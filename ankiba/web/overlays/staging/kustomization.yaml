@@ -1,0 +1,53 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+commonLabels:
+  app.kubernetes.io/env: staging
+  app.kubernetes.io/managed-by: kustomize
+namespace: staging
+
+configMapGenerator:
+- literals:
+  - ENV=staging
+  name: web-env-config-stg
+
+images:
+- digest: sha256:a8c2c21d8a6dd71eb45398cc0be7871adc3913f4f07bc65dc11770da21e712b0
+  name: ___IMAGE_URL___@___IMAGE_DIGEST___
+  newName: ghcr.io/unimarist/ankiba-web
+
+    # 1. 自身のmetadataラベル
+    # 2. specのセレクタ
+    # 3. Podテンプレートのラベル
+ 
+    # delimiterとindexのルールはすべて同じため、上はまとめて設定可能
+
+replacements:
+- source:
+    fieldPath: data.ENV
+    kind: ConfigMap
+    name: web-env-config-stg
+  targets:
+  - fieldPaths:
+    - metadata.labels.role
+    - spec.selector.matchLabels.role
+    - spec.template.metadata.labels.role
+    - spec.template.spec.containers.[name=ankiba-web-ENV_PLACEHOLDER].name
+    options:
+      delimiter: '-'
+      index: 2
+    select:
+      kind: Deployment
+      name: ankiba-web-deployment
+  - fieldPaths:
+    - metadata.labels.role
+    - spec.selector.role
+    options:
+      delimiter: '-'
+      index: 2
+    select:
+      kind: Service
+      name: ankiba-service-web
+
+resources:
+- ../../base

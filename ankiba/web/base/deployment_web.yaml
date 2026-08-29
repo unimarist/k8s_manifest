@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ankiba-web-deployment
+  labels:
+    role: ankiba-web-ENV_PLACEHOLDER
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: ankiba-web-ENV_PLACEHOLDER
+  template:
+    metadata:
+      labels:
+        role: ankiba-web-ENV_PLACEHOLDER
+    spec:
+      nodeSelector:
+        role: worker
+      containers:
+      - name: ankiba-web-ENV_PLACEHOLDER
+        image: ___IMAGE_URL___@___IMAGE_DIGEST___
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: image-basic-secret

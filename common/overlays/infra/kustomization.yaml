@@ -1,0 +1,8 @@
+resources:
+  - ../../argo
+  - ../../namespace
+  - ../../prometheus
+  - ../../pv
+  - ../../rbac
+  - ../../sealed_secret
+  - ../../tekton

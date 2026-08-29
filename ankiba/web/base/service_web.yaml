@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ankiba-service-web
+  labels:
+    role: ankiba-web-ENV_PLACEHOLDER
+spec:
+  ports:
+  - name: nginx
+    port: 80
+    targetPort: 80
+  selector:
+    role: ankiba-web-ENV_PLACEHOLDER
+  type: ClusterIP

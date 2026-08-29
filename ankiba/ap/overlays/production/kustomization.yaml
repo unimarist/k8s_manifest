@@ -1,0 +1,72 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+commonLabels:
+  app.kubernetes.io/env: production
+  app.kubernetes.io/managed-by: kustomize
+namespace: production
+
+configMapGenerator:
+- literals:
+  - ENV=production
+  name: ap-env-config-prd
+
+images:
+- digest: sha256:0d338595bd63f7c256d3f36afa8525fd812c295c9b206e495dac21cafaefe84f
+  name: ___IMAGE_URL___@___IMAGE_DIGEST___
+  newName: ghcr.io/unimarist/ankiba-ap
+
+
+
+    # 1. 自身のmetadataラベル
+    # 2. specのセレクタ
+    # 3. Podテンプレートのラベル
+    
+    # delimiterとindexのルールはすべて同じため、上の3つはまとめて設定可能
+
+replacements:
+- source:
+    fieldPath: data.ENV
+    kind: ConfigMap
+    name: ap-env-config-prd
+  targets:
+  - fieldPaths:
+    - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=RAILS_MASTER_KEY].valueFrom.secretKeyRef.name
+    - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=DB_NAME].valueFrom.secretKeyRef.name
+    - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=DB_USERNAME].valueFrom.secretKeyRef.name
+    - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=DB_PASSWORD].valueFrom.secretKeyRef.name
+    - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].env.[name=DB_HOSTNAME].valueFrom.secretKeyRef.name
+    options:
+      delimiter: '-'
+      index: 3
+    select:
+      kind: Deployment
+      name: ankiba-ap-deployment
+- source:
+    fieldPath: data.ENV
+    kind: ConfigMap
+    name: ap-env-config-prd
+  targets:
+  - fieldPaths:
+    - metadata.labels.role
+    - spec.selector.matchLabels.role
+    - spec.template.metadata.labels.role
+    - spec.template.spec.containers.[name=ankiba-ap-ENV_PLACEHOLDER].name
+    options:
+      delimiter: '-'
+      index: 2
+    select:
+      kind: Deployment
+      name: ankiba-ap-deployment
+  - fieldPaths:
+    - metadata.labels.role
+    - spec.selector.role
+    options:
+      delimiter: '-'
+      index: 2
+    select:
+      kind: Service
+      name: ankiba-service-ap
+
+resources:
+- ../../base
