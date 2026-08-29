@@ -1,29 +1,29 @@
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
-  name: ankiba-build-template
+  name: ankiba-w-build-template
 spec:
   params:
-    - name: ankiba-url
+    - name: ankiba-web-url
       description: The git repository url
-    - name: ankiba-revision
+    - name: ankiba-web-revision
       description: The git revision
-      default: master
+      default: main
     - name: ankiba-manifests-username
       description: repository username
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
       metadata:
-        name: ankiba-build-pipelinerun-$(uid)
+        name: ankiba-w-build-pipelinerun-$(uid)
       spec:
         pipelineRef:
-          name: ankiba-build-pipeline
+          name: ankiba-w-build-pipeline
         params:
-          - name: ankiba-url
-            value: $(tt.params.ankiba-url)
-          - name: ankiba-revision
-            value: $(tt.params.ankiba-revision)
+          - name: ankiba-web-url
+            value: $(tt.params.ankiba-web-url)
+          - name: ankiba-web-revision
+            value: $(tt.params.ankiba-web-revision)
           - name: pathToContext
             value: .
           - name: ankiba-manifests-url
@@ -31,16 +31,16 @@ spec:
           - name: ankiba-manifests-revision
             value: main
           - name: imageUrl
-            value: ghcr.io/unimarist/ankiba-ap
+            value: ghcr.io/unimarist/ankiba-web
           - name: imageTag
             value: 1.0.0-$(uid)
           - name: ankiba-manifests-username
             value: $(tt.params.ankiba-manifests-username)
         serviceAccountName: tekton-admin
         workspaces:
-          - name: tekton-app-pv
+          - name: tekton-web-pv
             persistentVolumeClaim:
-              claimName: tekton-app-pv
+              claimName: tekton-web-pv
           - name: tekton-manifest-pv
             persistentVolumeClaim:
               claimName: tekton-manifest-pv

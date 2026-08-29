@@ -41,7 +41,7 @@ roleRef:
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: tekton-triggers-clusterrole-production
+  name: tekton-triggers-clusterrole
 rules:
   # EventListeners need to be able to fetch any clustertriggerbindings
 - apiGroups: ["triggers.tekton.dev"]
@@ -51,11 +51,11 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: tekton-triggers-clusterbinding-production
+  name: tekton-triggers-clusterbinding
 subjects:
 - kind: ServiceAccount
   name: tekton-admin
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: tekton-triggers-clusterrole-staging
+  name: tekton-triggers-clusterrole

@@ -4,3 +4,9 @@ resources:
   - tekton-pipelines.yaml
   - tekton-triggers.yaml
   - interceptors.yaml
+  - tekton-admin-sa.yaml
+  - tekton-admin-triggers-rbac.yaml
+  - buildah-task.yaml
+  - git-cli-task.yaml
+  - git-clone-task.yaml
+  - kustomize-task.yaml

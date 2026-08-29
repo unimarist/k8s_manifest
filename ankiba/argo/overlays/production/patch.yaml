@@ -9,3 +9,4 @@ spec:
     namespace: production
   source:
     path: ankiba/overlays/production
+    targetRevision: production

@@ -15,7 +15,7 @@ spec:
     kustomize:
     path: ankiba/overlays/staging
     repoURL: https://github.com/unimarist/k8s_manifest.git
-    targetRevision: main
+    targetRevision: staging
   syncPolicy:
     automated:
       prune: true

@@ -1,17 +1,17 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: ankiba-build-pipeline
+  name: ankiba-w-build-pipeline
 spec:
   workspaces:
-    - name: tekton-app-pv
+    - name: tekton-web-pv
     - name: tekton-manifest-pv
     - name: temp-dir
   params:
-    - name: ankiba-url
+    - name: ankiba-web-url
       description: Git repository URL
       type: string
-    - name: ankiba-revision
+    - name: ankiba-web-revision
       description: Git revision to checkout
       type: string
     - name: imageUrl
@@ -29,20 +29,19 @@ spec:
     - name: ankiba-manifests-username 
       type: string
       description: Git Repo Username for k8s-manifest
-
   tasks:
-    - name: git-clone-ankiba
+    - name: git-clone-ankiba-web
       taskRef:
         name: git-clone
       params:
         - name: url
-          value: $(params.ankiba-url)
+          value: $(params.ankiba-web-url)
         - name: revision
-          value: $(params.ankiba-revision)
+          value: $(params.ankiba-web-revision)
       workspaces:
         - name: output
-          workspace: tekton-app-pv
-          
+          workspace: tekton-web-pv
+
     - name: git-clone-k8s-manifest
       taskRef:
         name: git-clone
@@ -54,7 +53,7 @@ spec:
       workspaces:
         - name: output
           workspace: tekton-manifest-pv
-          
+
     - name: docker-build
       taskRef:
         name: buildah
@@ -63,10 +62,10 @@ spec:
           value: $(params.imageUrl):$(params.imageTag)
       workspaces:
         - name: source
-          workspace: tekton-app-pv
+          workspace: tekton-web-pv
       runAfter:
-        - git-clone-ankiba
-        
+        - git-clone-ankiba-web
+
     - name: update-manifests
       taskRef:
         name: kustomize
@@ -78,14 +77,14 @@ spec:
       params:
       - name: KUSTOMIZE_SCRIPT
         value: |
-          cd ./ankiba/ap/overlays/staging
+          cd ./ankiba/web/overlays/staging
             kustomize edit set image ___IMAGE_URL___@___IMAGE_DIGEST___=$(params.imageUrl)@$(tasks.docker-build.results.IMAGE_DIGEST)
             kustomize build .
           cd -
-          cd ./ankiba/ap/overlays/production
+          cd ./ankiba/web/overlays/production
             kustomize edit set image ___IMAGE_URL___@___IMAGE_DIGEST___=$(params.imageUrl)@$(tasks.docker-build.results.IMAGE_DIGEST)
             kustomize build .
-            
+
     - name: push-manifests
       taskRef:
         name: git-cli
@@ -104,6 +103,6 @@ spec:
           cd $(workspaces.source.path)
           git checkout main
           git diff
-          git add -A ./ankiba/ap/overlays/
+          git add -A ./ankiba/web/overlays/
           git commit -m "[TEKTON-PIPELINES] Change container image in manifests: $(tasks.docker-build.results.IMAGE_DIGEST)."
           git push
