@@ -9,7 +9,7 @@ metadata:
 spec:
   destination:
     namespace: infra
-    server: https://10.0.1.76:6443 # private ip for common-control-plane-node
+    server: https://10.0.1.185:6443 # private ip for common-control-plane-node
   project: common-infra
   source:
     kustomize:
