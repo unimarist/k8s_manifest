@@ -40,6 +40,14 @@ replacements:
       kind: Deployment
       name: ankiba-web-deployment
   - fieldPaths:
+    - spec.template.spec.imagePullSecrets.[name=image-basic-secret-ENV_PLACEHOLDER].name
+    options:
+      delimiter: '-'
+      index: 3
+    select:
+      kind: Deployment
+      name: ankiba-web-deployment
+  - fieldPaths:
     - metadata.labels.role
     - spec.selector.role
     options:
