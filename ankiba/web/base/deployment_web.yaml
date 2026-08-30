@@ -22,4 +22,4 @@ spec:
         ports:
         - containerPort: 80
       imagePullSecrets:
-      - name: image-basic-secret
+      - name: image-basic-secret-ENV_PLACEHOLDER

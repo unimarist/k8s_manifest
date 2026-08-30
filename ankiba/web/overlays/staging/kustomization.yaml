@@ -33,6 +33,7 @@ replacements:
     - spec.selector.matchLabels.role
     - spec.template.metadata.labels.role
     - spec.template.spec.containers.[name=ankiba-web-ENV_PLACEHOLDER].name
+    - spec.template.spec.imagePullSecrets.[name=image-basic-secret-ENV_PLACEHOLDER].name
     options:
       delimiter: '-'
       index: 2
