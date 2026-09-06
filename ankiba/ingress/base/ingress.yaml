@@ -8,9 +8,6 @@ metadata:
     nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
 spec:
   ingressClassName: nginx
-  tls:
-  - hosts:
-    - ankiba-staging.unimarist.com
   rules:
   - http:
       paths:
