@@ -52,6 +52,8 @@ spec:
                 key: DB_HOSTNAME
           - name: RAILS_SERVE_STATIC_FILES
             value: "true"
+          - name: RAILS_ENV
+            value: "production"
         command:
           - /bin/sh
         args:

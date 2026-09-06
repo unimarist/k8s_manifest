@@ -12,7 +12,7 @@ configMapGenerator:
   name: ap-env-config-stg
 
 images:
-- digest: sha256:dd83969344da9c30a2ea036fb5798b01d1db9b7b644a7963170dca1bee47d0df
+- digest: sha256:9abd3e55fb4e93108e175e418f44f4318d263b4f4262091cc1e2bf3530c98d2d
   name: ___IMAGE_URL___@___IMAGE_DIGEST___
   newName: ghcr.io/unimarist/ankiba-ap
 
