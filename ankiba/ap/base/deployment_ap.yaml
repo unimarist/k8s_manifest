@@ -50,6 +50,8 @@ spec:
               secretKeyRef:
                 name: ankiba-ap-secret-ENV_PLACEHOLDER
                 key: DB_HOSTNAME
+          - name: RAILS_SERVE_STATIC_FILES
+            value: "true"
         command:
           - /bin/sh
         args:
