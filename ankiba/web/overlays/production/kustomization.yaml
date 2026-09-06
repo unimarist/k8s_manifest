@@ -12,7 +12,7 @@ configMapGenerator:
   name: web-env-config-prd
 
 images:
-- digest: sha256:295249bcd1a1f8c03f6d4719a706bc17efca60c4b51aa5118f5a976a62edba72
+- digest: sha256:234def6a952b92d2bb9ff580e4b0e999b9bc4fdc0435a5a32f2e41b3d7b87378
   name: ___IMAGE_URL___@___IMAGE_DIGEST___
   newName: ghcr.io/unimarist/ankiba-web
 
